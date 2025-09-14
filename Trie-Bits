@@ -1,0 +1,102 @@
+/*
+    MY YOUTUBE VIDEO ON THIS Qn : https://www.youtube.com/watch?v=JS48Hp2_Z4I
+    Company Tags                : Microsoft
+    Leetcode Link               : https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+*/
+
+/*
+    Problem :
+    Given an array nums, return the maximum result of nums[i] XOR nums[j], 
+    where 0 <= i <= j < n.
+
+    Example :
+    Input:
+    4
+    3 10 5 25
+    Output:
+    28
+*/
+
+/******************************************************** C++ ****************************************************************/
+//T.C : O(32*n)
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    struct trieNode {
+        trieNode* left = nullptr;
+        trieNode* right = nullptr;
+    };
+    
+    void insert(trieNode* head, int& num) {
+        trieNode* pCrawl = head;
+        for(int i = 31; i >= 0; i--) {
+            int ith_bit = (num >> i) & 1;
+            if(ith_bit == 0) {
+                if(!pCrawl->left) {
+                    pCrawl->left = new trieNode();
+                }
+                pCrawl = pCrawl->left;
+            } else {
+                if(!pCrawl->right) {
+                    pCrawl->right = new trieNode();
+                }
+                pCrawl = pCrawl->right;
+            }
+        }
+    }
+    
+    int maxXor(trieNode* head, int &num) {
+        int maxXor = 0;
+        trieNode* pCrawl = head;
+        for(int i = 31; i >= 0; i--) {
+            int ith_bit = (num >> i) & 1;
+            if(ith_bit == 1) {
+                if(pCrawl->left) {
+                    maxXor += (1 << i); 
+                    pCrawl = pCrawl->left;
+                } else {
+                    pCrawl = pCrawl->right;
+                }
+            } else {
+                if(pCrawl->right) {
+                    maxXor += (1 << i); 
+                    pCrawl = pCrawl->right;
+                } else {
+                    pCrawl = pCrawl->left;
+                }
+            }
+        }
+        return maxXor;
+    }
+    
+    int findMaximumXOR(vector<int>& nums) {
+        trieNode* root = new trieNode();
+        for(int &x: nums) {
+            insert(root, x);
+        }
+        int result = 0;
+        for(int &x : nums) {
+            result = max(result, maxXor(root, x));
+        }
+        return result;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n; 
+    vector<int> nums(n);
+    for(int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    Solution sol;
+    cout << sol.findMaximumXOR(nums) << "\n";
+
+    return 0;
+}

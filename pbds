@@ -37,3 +37,30 @@ int main() {
     }
     return 0;
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ordered_set<int> s; // by defaukt assending
+ordered_set<int, null_type, greater<int>> s;  // for descinding
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Function	Example	Description
+insert(x)	s.insert(10);	Inserts element 10
+erase(x)	s.erase(10);	Removes element 10
+find(x)	if (s.find(5) != s.end())	Returns iterator if x exists
+clear()	s.clear();	Removes all elements
+size()	s.size();	Number of elements
+empty()	if (s.empty())	Checks if empty
+begin(), end()	for (auto x : s)	Iterates in sorted order
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ordered_set<int> s = {10, 20, 30, 40};
+
+// find_by_order(k) → returns iterator to the k-th smallest element (0-indexed)
+cout << *s.find_by_order(0) << nl;  // 10 → 0th smallest element (smallest one)
+cout << *s.find_by_order(2) << nl;  // 30 → 2nd smallest (10,20,[30],40)
+
+// order_of_key(x) → returns how many elements are strictly less than x
+cout << s.order_of_key(25) << nl;   // 2 → elements smaller than 25 are {10, 20}
+cout << s.order_of_key(10) << nl;   // 0 → no element smaller than 10
+

@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+
+#define nl '\n'
+#define ll long long
+const double pi = 3.141592653589793;
+const int MOD = 1e9 + 7;
+const int sz = 100000 + 123;
+
+template <typename T>
+using ordered_set = tree<
+    T,
+    null_type,
+    less<T>,
+    rb_tree_tag,
+    tree_order_statistics_node_update>;
+
+void solve() {
+	/*
+
+
+	*/
+	
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
